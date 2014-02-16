@@ -1,0 +1,10 @@
+*.bak
+*.log
+*.dat
+
+.DS_Store
+Thumbs.db
+
+.grunt
+node_modules
+bower_components
