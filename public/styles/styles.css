@@ -1,0 +1,376 @@
+@import url(webfont.css);
+
+/* Normalise elements */
+html,
+body {
+  margin: 0;
+}
+
+legend,
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+select,
+button {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 0;
+  font: inherit;
+  vertical-align: middle;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+
+/* Typography */
+body {
+  font: normal 16px/1.5 Karla, Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 48px;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+p {
+  margin: 0 0 16px;
+}
+
+
+/* Form elements */
+select,
+button {
+  display: inline-block;
+  height: 48px;
+  padding: 12px 16px;
+  border: 1px solid #999;
+  line-height: 22px;
+  color: #555;
+}
+
+select:focus,
+button:focus {
+  outline: 2px solid #2070B0;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Remove the dropdown arrow from FF. Dirty. */
+  text-indent: .01px;
+  text-overflow: ' ';
+
+  background-color: #FFF;
+  box-shadow: inset 0 2px rgba(0, 0, 0, .15);
+}
+
+select:focus {
+  color: #333;
+  border-color: #0036FF;
+}
+
+button {
+  background-color: #E5E9E8;
+  text-shadow: 0 1px #FFF;
+  box-shadow: inset 0 1px #FFF;
+}
+
+button:hover,
+button:focus {
+  background-color: #EFF1F1;
+}
+
+button:active {
+  border-color: #999;
+  background-color: #D2D6D6;
+  box-shadow: inset 0 2px rgba(0, 0, 0, .15);
+}
+
+
+/* App layout */
+.layout {
+  overflow: hidden;
+}
+
+.layout__sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 35%;
+}
+
+.layout__content {
+  margin-left: 35%;
+}
+
+@media screen and (max-width: 800px) {
+
+  .layout__sidebar {
+    width: auto;
+  }
+
+  .layout__content {
+    margin-left: 0;
+  }
+
+}
+
+@media screen and (min-width: 1200px) {
+
+  .layout__sidebar {
+    width: 25%;
+  }
+
+  .layout__content {
+    margin-left: 25%;
+  }
+
+}
+
+
+/* Network panel */
+.network {
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 20px;
+  border-right: 1px solid #9daca9;
+  background: #FFF;
+}
+
+.network__line {
+  position: relative;
+  margin-bottom: 12px;
+  padding: 30px 10px 10px 20px;
+  border-left: 6px solid;
+}
+
+.network__line--b {
+  border-left-color: #894E24;
+}
+
+.network__line--c {
+  border-left-color: #DC241F;
+}
+
+.network__line--o {
+  border-left-color: #FFCE00;
+}
+
+.network__line--d {
+  border-left-color: #007229;
+}
+
+.network__line--h {
+  border-left-color: #D799AF;
+}
+
+.network__line--j {
+  border-left-color: #6A7278;
+}
+
+.network__line--m {
+  border-left-color: #751056;
+}
+
+.network__line--n {
+  border-left-color: #111;
+}
+
+.network__line--p {
+  border-left-color: #0019A8;
+}
+
+.network__line--v {
+  border-left-color: #00A0E2;
+}
+
+.network__line--w {
+  border-left-color: #76D0BD;
+}
+
+.network__line legend {
+  position: absolute;
+  top: 0;
+}
+
+.network__line select,
+.network__line button {
+  float: left;
+}
+
+.network__line select {
+  width: 75%;
+  border-right: 0;
+}
+
+.network__line button {
+  width: 25%;
+}
+
+.network__toggle {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+
+  .network {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+  }
+
+  .network.is-closed {
+    -webkit-transform: translate3d(-97.5%, 0, 0);
+    transform: translate3d(-97.5%, 0, 0);
+  }
+
+  .network.is-open {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  .network__toggle {
+    position: absolute;
+    top: 21px;
+    left: 100%;
+    display: inline-block;
+
+    /* Hide the text... */
+    overflow: hidden;
+    text-indent: -999px;
+  }
+
+  .network__toggle:after {
+    /* ... but display the generated content */
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-indent: 0;
+    text-align: center;
+  }
+
+  .is-closed .network__toggle:after {
+    content: " →";
+  }
+
+  .is-open .network__toggle:after {
+    content: " ←";
+  }
+
+}
+
+
+/* Departures */
+.departures {
+  padding: 20px;
+}
+
+.departures__heading {
+  overflow: hidden;
+  border-bottom: 1px solid #E0E0E0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #2070B0;
+  background: #FFF;
+}
+
+@media screen and (max-width: 800px) {
+
+  .departures {
+    /* Allow for network panel overlay */
+    padding-left: -webkit-calc(2.5% + 20px);
+    padding-left: calc(2.5% + 20px);
+  }
+
+  .departures__heading {
+    text-indent: 20px;
+  }
+
+}
+
+
+/* Trains */
+.trains {
+  width: 100%;
+  margin: 0 0 32px;
+  border: 1px solid #151717;
+  border-collapse: collapse;
+  color: #FFF;
+}
+
+.trains th,
+.trains td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.trains th {
+  border-bottom: 1px solid #151717;
+  color: #FCFCBD;
+  background: #2D3232;
+  box-shadow: inset 0 2px rgba(255, 255, 255, .5);
+}
+
+.trains td {
+  border-bottom: 1px solid #2D3232;
+  background: #393F3F;
+  box-shadow: inset 0 2px rgba(255, 255, 255, .15);
+}
+
+@media screen and (max-width: 800px) {
+
+  .trains th:last-child,
+  .trains td:last-child {
+    display: none;
+  }
+
+}
+
+
+/* Notices */
+.notice {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid;
+  box-shadow: inset 0 2px #FFF;
+}
+
+.notice--welcome {
+  background: #F2F8FD;
+  border-color: #2B8BD8;
+}
+
+.notice--loading {
+  background: #FAFBFB;
+  border-color: #AEBDBD;
+}
+
+.notice--error {
+  background: #FDF2F2;
+  border-color: #D82B34;
+}
+
+.notice p {
+  margin-bottom: 0;
+}

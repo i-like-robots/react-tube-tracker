@@ -8,3 +8,6 @@ Thumbs.db
 .grunt
 node_modules
 bower_components
+
+heroku
+heroku.pub
