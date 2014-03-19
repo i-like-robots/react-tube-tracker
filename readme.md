@@ -20,4 +20,4 @@ This is a simple application to check the predicted arrival times of trains at s
 [1]: http://facebook.github.io/react/
 [2]: http://www.tfl.gov.uk/businessandpartners/syndication/
 [part1]: http://maketea.co.uk/2014/03/05/building-robust-web-apps-with-react-part-1.html
-[tag1]: https://github.com/i-like-robots/tube-tracker/releases/tag/prototype
+[tag1]: https://github.com/i-like-robots/react-tube-tracker/releases/tag/prototype
