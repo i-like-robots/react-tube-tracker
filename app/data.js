@@ -1,11 +1,9 @@
-var data = {};
-
-data.lines = {
+exports.lines = {
   "B": "Bakerloo",
   "C": "Central",
   "O": "Circle",
   "D": "District",
-  "H": "Hammersmith & Circle",
+  "H": "Hammersmith & City",
   "J": "Jubilee",
   "M": "Metropolitan",
   "N": "Northern",
@@ -28,7 +26,7 @@ Stations missing from TfL's TrackerNet:
 - Westbourne Park
 - Wood Lane
 */
-data.stations = {
+exports.stations = {
   "BST": "Baker Street",
   "CHX": "Charing Cross",
   "ERB": "Edgware Road (Bakerloo)",
@@ -290,7 +288,7 @@ data.stations = {
   "WAL": "Walthamstow Central"
 };
 
-data.stationsOnLines = {
+exports.stationsOnLines = {
   "B": ["BST", "CHX", "ERB", "ELE", "EMB", "HSD", "HAW", "KGN", "KNT", "KPK", "LAM", "MDV", "MYB", "NWM", "OXC", "PAD", "PIC", "QPK", "RPK", "SKT", "SPK", "WAR", "WLO", "WEM", "WJN"],
   "C": ["BNK", "BDE", "BNG", "BDS", "BHL", "CYL", "CHG", "DEB", "EBY", "EAC", "EPP", "FLP", "GHL", "GRH", "GFD", "HAI", "HLN", "HOL", "HPK", "LAN", "LEY", "LYS", "LST", "LTN", "MAR", "MLE", "NEP", "NAC", "NHT", "NHG", "OXC", "PER", "QWY", "RED", "ROD", "RUG", "SBC", "SNB", "SRP", "SWF", "STP", "SFD", "THB", "TCR", "WAN", "WAC", "WRP", "WCT", "WFD"],
   "O": ["ALD", "BAR", "BLF", "BST", "CST", "EMB", "ERD", "ESQ", "FAR", "GPS", "GRD", "HMS", "HST", "KXX", "LST", "MAN", "MGT", "MON", "NHG", "SJP", "SKN", "SSQ", "TEM", "THL", "VIC", "WMS"],
@@ -304,7 +302,7 @@ data.stationsOnLines = {
   "W": ["BNK", "WLO"]
 };
 
-data.circleLineMap = {
+exports.circleLineMap = {
   "ALD": "M",
   "BAR": "H",
   "BLF": "D",
@@ -333,7 +331,7 @@ data.circleLineMap = {
   "WMS": "D"
 };
 
-data.linesAtStations = {
+exports.linesAtStations = {
   "BST": ["B", "H", "J", "M"],
   "CHX": ["B", "N"],
   "ERB": ["B"],

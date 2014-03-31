@@ -1,3 +1,5 @@
+var Platform = require("./platform");
+
 function Station(data) {
   this._raw = data;
 }
@@ -16,3 +18,5 @@ Station.prototype.platforms = function() {
 
   return platforms;
 };
+
+module.exports = Station;

@@ -1,4 +1,7 @@
 /** @jsx React.DOM */
+var React = require("../../vendor/react/react");
+var utils = require("../utils");
+
 var Network = React.createClass({
 
   getInitialState: function() {
@@ -86,3 +89,5 @@ var Line = React.createClass({
   }
 
 });
+
+module.exports = Network;

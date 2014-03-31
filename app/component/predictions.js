@@ -1,4 +1,8 @@
 /** @jsx React.DOM */
+var React = require("../../vendor/react/react");
+var Prediction = require("../model/prediction");
+var utils = require("../utils");
+
 var Predictions = React.createClass({
 
   getInitialState: function() {
@@ -171,3 +175,5 @@ var Notice = React.createClass({
   }
 
 });
+
+module.exports = Predictions;

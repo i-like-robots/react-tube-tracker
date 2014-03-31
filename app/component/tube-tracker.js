@@ -1,4 +1,9 @@
 /** @jsx React.DOM */
+var React = require("../../vendor/react/react");
+var Predictions = require("./predictions");
+var Network = require("./network");
+var utils = require("../utils");
+
 var TubeTracker = React.createClass({
 
   validateUserInput: function(line, station) {
@@ -62,3 +67,5 @@ var TubeTracker = React.createClass({
   }
 
 });
+
+module.exports = TubeTracker;

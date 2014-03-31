@@ -21,3 +21,5 @@ Train.prototype.location = function() {
 Train.prototype.destination = function() {
   return this._raw.getAttribute('Destination');
 };
+
+module.exports = Train;

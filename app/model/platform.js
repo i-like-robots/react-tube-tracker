@@ -1,3 +1,5 @@
+var Train = require("./train");
+
 function Platform(data) {
   this._raw = data;
 };
@@ -24,3 +26,5 @@ Platform.prototype.trains = function() {
 
   return trains;
 };
+
+module.exports = Platform;
