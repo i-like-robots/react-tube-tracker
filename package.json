@@ -4,7 +4,8 @@
   "devDependencies": {
     "browserify": "3.x",
     "reactify": "0.11.x",
-    "uglifyify": "2.x"
+    "uglifyify": "2.x",
+    "rewireify": "0.x"
   },
   "dependencies": {
     "express": "4.x"
@@ -14,6 +15,7 @@
   },
   "scripts": {
     "build-dev": "browserify -e app/bootstrap.js -t reactify -o public/scripts/bundle.dev.js -d",
-    "build-min": "browserify -e app/bootstrap.js -t reactify -t uglifyify -o public/scripts/bundle.min.js"
+    "build-min": "browserify -e app/bootstrap.js -t reactify -t uglifyify -o public/scripts/bundle.min.js",
+    "build-tdd": "browserify -e test/spec/ -t reactify -t rewireify -o test/spec/bundle.js"
   }
 }
