@@ -1,5 +1,3 @@
-var data = require("./data");
-
 exports.debounceEvent = function(callback, wait) {
   var timeout;
 
@@ -40,7 +38,7 @@ exports.validateResponse = function(responseDoc) {
 };
 
 exports.getQueryString = function() {
-  return window.location.search.replace(/^\?/, "").replace(/\/$/, "");
+  return window.location.search;
 };
 
 exports.formatQueryString = function(properties) {
@@ -57,7 +55,7 @@ exports.formatQueryString = function(properties) {
 };
 
 exports.queryStringProperty = function(queryString, prop) {
-  var pairs = queryString.split("&");
+  var pairs = queryString.replace(/^\?/, "").replace(/\/$/, "").split("&");
   var properties = {};
 
   pairs.forEach(function(pair) {
