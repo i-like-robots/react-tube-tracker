@@ -35,9 +35,9 @@ var Predictions = React.createClass({
 
   predictionsSuccess: function(responseDoc) {
     // Because we're using a proxy it will return a 200 and XML even if the
-    // TrackerNet API is unavailble or request was invalid.
+    // TrackerNet API is unavailable or request was invalid.
     if (!utils.validateResponse(responseDoc)) {
-      return this.predictionError(new Error("Invalid API response"));
+      return this.predictionsError(new Error("Invalid API response"));
     }
 
     this.setState({
@@ -81,10 +81,10 @@ var Predictions = React.createClass({
 
   render: function() {
     if (this.state.status === "success") {
-      return <DepartureBoard predictionData={this.state.predictionData} />;
+      return <DepartureBoard ref="content" predictionData={this.state.predictionData} />;
     }
 
-    return <Notice type={this.state.status} />;
+    return <Notice ref="content" type={this.state.status} />;
   }
 
 });
@@ -120,7 +120,7 @@ var Trains = React.createClass({
   render: function() {
     var generatedTrains = this.props.trains.map(function(train) {
       return (
-        <tr key={"train-" + train.id()}>
+        <tr className="trains__arrival" key={"train-" + train.id()}>
           <td>{train.timeTo()}</td>
           <td>{train.destination()}</td>
           <td>{train.location()}</td>
@@ -153,7 +153,7 @@ var Notice = React.createClass({
 
     switch (status) {
       case "error":
-        text = "Sorry an error occured, please try again.";
+        text = "Sorry an error occurred, please try again.";
         break;
       case "loading":
         text = "Loading predictions…"
