@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-var React = require("../../vendor/react/react");
+var React = require("react");
 var Prediction = require("../model/prediction");
 var utils = require("../utils");
 

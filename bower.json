@@ -1,7 +1,0 @@
-{
-  "name": "tube-tracker",
-  "version": "0.2.0",
-  "dependencies": {
-    "react": "~0.10.0"
-  }
-}

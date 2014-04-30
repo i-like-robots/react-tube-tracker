@@ -8,7 +8,8 @@
     "rewireify": "0.x"
   },
   "dependencies": {
-    "express": "4.x"
+    "express": "4.x",
+    "react": "~0.10.0"
   },
   "engines": {
     "node": ">=0.10.0"
