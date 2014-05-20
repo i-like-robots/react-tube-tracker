@@ -7,7 +7,7 @@ var utils = require("../utils");
 var TubeTracker = React.createClass({
 
   validateUserInput: function(line, station) {
-    return /^[A-Z]$/.test(line) && /^[A-Z]{3}$/.test(station) &&
+    return /^[A-Z]{1}$/.test(line) && /^[A-Z]{3}$/.test(station) &&
       utils.isStationOnLine(line, station, this.props.networkData);
   },
 
@@ -36,7 +36,11 @@ var TubeTracker = React.createClass({
   },
 
   handleUpdate: function(e) {
-    this.setState(this.formatAndValidateUserInput(e.detail.line, e.detail.station));
+    var input = this.formatAndValidateUserInput(e.detail.line, e.detail.station);
+
+    if (input.line && input.station) {
+      this.setState(input);
+    }
   },
 
   componentWillUpdate: function(newProps, newState) {
