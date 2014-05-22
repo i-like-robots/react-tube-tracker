@@ -19,22 +19,21 @@ describe("Network", function() {
   });
 
   describe("Network", function() {
-    var OriginalContent, StubbedContent;
 
     beforeEach(function() {
-      StubbedContent = stubComponent();
-      OriginalContent = Network.__get__("Line");
-      Network.__set__("Line", StubbedContent);
+      this.stubbed = stubComponent();
+      this.original = Network.__get__("Line");
+      Network.__set__("Line", this.stubbed);
 
       instance = TestUtils.renderIntoDocument(<Network networkData={networkData} />);
     });
 
     afterEach(function() {
-      Network.__set__("Line", OriginalContent);
+      Network.__set__("Line", this.original);
     });
 
     it("should render a form for each line available from TrackerNet", function() {
-      var lines = TestUtils.scryRenderedComponentsWithType(instance, StubbedContent);
+      var lines = TestUtils.scryRenderedComponentsWithType(instance, this.stubbed);
       expect(lines.length).toBe(11);
     });
 

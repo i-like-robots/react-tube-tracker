@@ -54,7 +54,6 @@ describe("Predictions", function() {
     });
 
     describe("with valid departure data", function() {
-      var OriginalContent, StubbedContent;
 
       beforeEach(function(done) {
         spyOn(Predictions.__get__("utils"), "validateResponse").and.returnValue(true);
@@ -62,19 +61,19 @@ describe("Predictions", function() {
 
         // The entire component stack should not be tested and must be stubbed. My mock
         // component also permits testing async component rendering.
-        StubbedContent = stubComponent(done);
-        OriginalContent = Predictions.__get__("DepartureBoard");
-        Predictions.__set__("DepartureBoard", StubbedContent);
+        this.stubbed = stubComponent(done);
+        this.original = Predictions.__get__("DepartureBoard");
+        Predictions.__set__("DepartureBoard", this.stubbed);
 
         instance = React.renderComponent(<Predictions line="B" station="WLO" />, container);
       });
 
       afterEach(function() {
-        Predictions.__set__("DepartureBoard", OriginalContent);
+        Predictions.__set__("DepartureBoard", this.original);
       });
 
       it("should display the departure board when valid data is received", function(done) {
-        expect(TestUtils.isComponentOfType(instance.refs.content, StubbedContent)).toBe(true);
+        expect(TestUtils.isComponentOfType(instance.refs.content, this.stubbed)).toBe(true);
         expect(instance.state.status).toBe("success");
         done();
       });
@@ -82,25 +81,24 @@ describe("Predictions", function() {
     });
 
     describe("on a data error", function() {
-      var OriginalContent, StubbedContent;
 
       beforeEach(function(done) {
         spyOn(Predictions.__get__("utils"), "validateResponse").and.returnValue(false);
         spyOn(Predictions.__get__("utils"), "proxyRequestURL").and.returnValue("api/failure");
 
-        StubbedContent = stubComponent(done);
-        OriginalContent = Predictions.__get__("Notice");
-        Predictions.__set__("Notice", StubbedContent);
+        this.stubbed = stubComponent(done);
+        this.original = Predictions.__get__("Notice");
+        Predictions.__set__("Notice", this.stubbed);
 
         instance = React.renderComponent(<Predictions line="B" station="WLO" />, container);
       });
 
       afterEach(function() {
-        Predictions.__set__("Notice", OriginalContent);
+        Predictions.__set__("Notice", this.original);
       });
 
       it("should display an error message", function(done) {
-        expect(TestUtils.isComponentOfType(instance.refs.content, StubbedContent)).toBe(true);
+        expect(TestUtils.isComponentOfType(instance.refs.content, this.stubbed)).toBe(true);
         expect(instance.state.status).toBe("error");
         done();
       });

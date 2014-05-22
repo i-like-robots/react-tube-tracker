@@ -11,22 +11,29 @@ describe("Tube Tracker", function() {
   var instance;
   var container = document.createElement("div");
   var TestUtils = React.addons.TestUtils;
-  var OriginalNetwork, StubbedNetwork, OriginalPredictions, StubbedPredictions;
 
   beforeEach(function() {
-    // Stub out sub-components
-    OriginalNetwork = TubeTracker.__get__("Network");
-    StubbedNetwork = stubComponent();
-    TubeTracker.__set__("Network", StubbedNetwork);
+    this.original = {
+      network: TubeTracker.__get__("Network"),
+      predictions: TubeTracker.__get__("Predictions")
+    };
 
-    OriginalPredictions = TubeTracker.__get__("Predictions");
-    StubbedPredictions = stubComponent();
-    TubeTracker.__set__("Predictions", StubbedPredictions);
+    this.stubbed ={
+      network: stubComponent(),
+      predictions: stubComponent()
+    };
+
+    TubeTracker.__set__({
+      Network: this.stubbed.network,
+      Predictions: this.stubbed.predictions
+    });
   });
 
   afterEach(function() {
-    TubeTracker.__set__("Network", OriginalNetwork);
-    TubeTracker.__set__("Predictions", OriginalPredictions);
+    TubeTracker.__set__({
+      Network: this.original.network,
+      Predictions: this.original.predictions
+    });
   });
 
   describe("initial state", function() {
