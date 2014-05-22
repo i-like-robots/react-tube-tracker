@@ -62,7 +62,7 @@ describe("Predictions", function() {
 
         // The entire component stack should not be tested and must be stubbed. My mock
         // component also permits testing async component rendering.
-        StubbedContent = stubComponent.forAsync(done);
+        StubbedContent = stubComponent(done);
         OriginalContent = Predictions.__get__("DepartureBoard");
         Predictions.__set__("DepartureBoard", StubbedContent);
 
@@ -88,7 +88,7 @@ describe("Predictions", function() {
         spyOn(Predictions.__get__("utils"), "validateResponse").and.returnValue(false);
         spyOn(Predictions.__get__("utils"), "proxyRequestURL").and.returnValue("api/failure");
 
-        StubbedContent = stubComponent.forAsync(done);
+        StubbedContent = stubComponent(done);
         OriginalContent = Predictions.__get__("Notice");
         Predictions.__set__("Notice", StubbedContent);
 

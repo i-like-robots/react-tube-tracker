@@ -22,7 +22,7 @@ describe("Network", function() {
     var OriginalContent, StubbedContent;
 
     beforeEach(function() {
-      StubbedContent = stubComponent.forSync();
+      StubbedContent = stubComponent();
       OriginalContent = Network.__get__("Line");
       Network.__set__("Line", StubbedContent);
 

@@ -16,11 +16,11 @@ describe("Tube Tracker", function() {
   beforeEach(function() {
     // Stub out sub-components
     OriginalNetwork = TubeTracker.__get__("Network");
-    StubbedNetwork = stubComponent.forSync();
+    StubbedNetwork = stubComponent();
     TubeTracker.__set__("Network", StubbedNetwork);
 
     OriginalPredictions = TubeTracker.__get__("Predictions");
-    StubbedPredictions = stubComponent.forSync();
+    StubbedPredictions = stubComponent();
     TubeTracker.__set__("Predictions", StubbedPredictions);
   });
 

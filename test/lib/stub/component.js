@@ -1,19 +1,27 @@
 /** @jsx React.DOM */
 var React = require("react");
 
-exports.forAsync = function(callback) {
-  return React.createClass({
-    componentDidMount: function() {
-      callback.call(this);
-    },
-    render: function() {
-      return <div />;
-    }
-  });
-};
+module.exports = function stub(mount, unmount) {
+  var mixins = [];
 
-exports.forSync = function() {
+  if (mount) {
+    mixins.push({
+      componentDidMount: function() {
+        mount.call(this);
+      }
+    });
+  }
+
+  if (unmount) {
+    mixins.push({
+      componentWillUnmount: function() {
+        unmount.call(this);
+      }
+    });
+  }
+
   return React.createClass({
+    mixins: mixins,
     render: function() {
       return <div />;
     }
