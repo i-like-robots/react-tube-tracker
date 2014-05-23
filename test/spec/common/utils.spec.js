@@ -1,5 +1,5 @@
-var utils = require("../../../app/utils");
-var data = require("../../../app/data");
+var utils = require("../../../app/common/utils");
+var data = require("../../../app/common/data");
 
 describe("Utils", function() {
 

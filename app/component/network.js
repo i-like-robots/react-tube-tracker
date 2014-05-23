@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require("react");
-var utils = require("../utils");
+var utils = require("../common/utils");
 
 var Network = React.createClass({
 

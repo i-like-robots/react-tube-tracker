@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require("react");
 var Prediction = require("../model/prediction");
-var utils = require("../utils");
+var utils = require("../common/utils");
 
 var Predictions = React.createClass({
 

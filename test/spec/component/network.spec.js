@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require("react/addons");
 var Network = require("../../../app/component/network");
-var networkData = require("../../../app/data");
+var networkData = require("../../../app/common/data");
 
 var stubComponent = require("../../lib/stub/component");
 var stubPrediction = require("../../lib/stub/prediction");
