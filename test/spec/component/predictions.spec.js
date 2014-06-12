@@ -4,6 +4,7 @@ var Predictions = require("../../../app/component/predictions");
 
 var stubComponent = require("../../lib/stub/component");
 var stubPrediction = require("../../lib/stub/prediction");
+var stubAPIResponse = require("../../lib/stub/api-response");
 
 describe("Predictions", function() {
 
@@ -38,14 +39,14 @@ describe("Predictions", function() {
       });
 
       it("should display the welcome message when a line/station is not set", function() {
-        instance = React.renderComponent(<Predictions line={null} station={null} />, container);
+        instance = React.renderComponent(<Predictions line={null} station={null} config={{}} />, container);
 
         expect(TestUtils.isComponentOfType(instance.refs.content, Notice)).toBe(true);
         expect(instance.state.status).toBe("welcome");
       });
 
       it("should display the loading message when a line/station is set and valid", function() {
-        instance = React.renderComponent(<Predictions line="B" station="WLO" />, container);
+        instance = React.renderComponent(<Predictions line="district" station="940GZZLUEMB" config={{}} />, container);
 
         expect(TestUtils.isComponentOfType(instance.refs.content, Notice)).toBe(true);
         expect(instance.state.status).toBe("loading");
@@ -57,7 +58,7 @@ describe("Predictions", function() {
 
       beforeEach(function(done) {
         spyOn(Predictions.__get__("utils"), "validateResponse").and.returnValue(true);
-        spyOn(Predictions.__get__("utils"), "proxyRequestURL").and.returnValue("api/success");
+        spyOn(Predictions.__get__("utils"), "apiRequestURL").and.returnValue("api/success");
 
         // The entire component stack should not be tested and must be stubbed. My mock
         // component also permits testing async component rendering.
@@ -65,7 +66,7 @@ describe("Predictions", function() {
         this.original = Predictions.__get__("DepartureBoard");
         Predictions.__set__("DepartureBoard", this.stubbed);
 
-        instance = React.renderComponent(<Predictions line="B" station="WLO" />, container);
+        instance = React.renderComponent(<Predictions line="district" station="940GZZLUEMB" config={{}} />, container);
       });
 
       afterEach(function() {
@@ -80,17 +81,25 @@ describe("Predictions", function() {
 
     });
 
+    xdescribe("with no departure data", function() {
+
+      beforeEach(function() {
+        spyOn(Predictions.__get__("utils"), "requestURL").and.returnValue("api/success");
+      });
+
+    });
+
     describe("on a data error", function() {
 
       beforeEach(function(done) {
         spyOn(Predictions.__get__("utils"), "validateResponse").and.returnValue(false);
-        spyOn(Predictions.__get__("utils"), "proxyRequestURL").and.returnValue("api/failure");
+        spyOn(Predictions.__get__("utils"), "apiRequestURL").and.returnValue("api/failure");
 
         this.stubbed = stubComponent(done);
         this.original = Predictions.__get__("Notice");
         Predictions.__set__("Notice", this.stubbed);
 
-        instance = React.renderComponent(<Predictions line="B" station="WLO" />, container);
+        instance = React.renderComponent(<Predictions line="district" station="940GZZLUEMB" config={{}} />, container);
       });
 
       afterEach(function() {
@@ -111,19 +120,19 @@ describe("Predictions", function() {
     var DepartureBoard = Predictions.__get__("DepartureBoard");
 
     beforeEach(function() {
-      instance = TestUtils.renderIntoDocument(<DepartureBoard predictionData={stubPrediction} />);
+      instance = TestUtils.renderIntoDocument(<DepartureBoard predictionData={stubAPIResponse} />);
     });
 
     it("should display the selected line and station", function() {
       // the 'find' methods will return the first match found
       var heading = TestUtils.findRenderedDOMComponentWithTag(instance, "h1");
-      expect(heading.props.children).toBe("Hammersmith District Line");
+      expect(heading.props.children).toBe("Embankment Underground Station, District Line");
     });
 
     it("should display each platform at the station on the line", function() {
       // the 'scry' methods will return an array of all matches
       var platforms = TestUtils.scryRenderedDOMComponentsWithClass(instance, "platform");
-      expect(platforms.length).toBe(4);
+      expect(platforms.length).toBe(2);
     });
 
   });
@@ -132,13 +141,15 @@ describe("Predictions", function() {
     var Trains = Predictions.__get__("Trains");
 
     beforeEach(function() {
-      var trains = stubPrediction.station().platforms().pop().trains();
-      instance = TestUtils.renderIntoDocument(<Trains trains={trains} />);
+      var trains = stubPrediction.filter(function(train) {
+        return train.platformName === "Westbound - Platform 1";
+      });
+      instance = TestUtils.renderIntoDocument(<Trains trains={stubAPIResponse.arrivalsAtPlatform()} />);
     });
 
     it("should render a table row for each train", function() {
       var arrivals = TestUtils.scryRenderedDOMComponentsWithClass(instance, "trains__arrival");
-      expect(arrivals.length).toBe(5);
+      expect(arrivals.length).toBe(3);
     });
 
     it("should display the train time until, destination and current location", function() {
@@ -146,9 +157,9 @@ describe("Predictions", function() {
       var columns = TestUtils.scryRenderedDOMComponentsWithTag(arrivals.pop(), "td");
 
       // The rendered DOM nodes can be accessed and inspected
-      expect(columns[0].props.children).toBe("1:00");
-      expect(columns[1].props.children).toBe("Richmond");
-      expect(columns[2].props.children).toBe("Barons Court");
+      expect(columns[0].props.children).toBe("-");
+      expect(columns[1].props.children).toBe("Ealing Broadway Underground Station");
+      expect(columns[2].props.children).toBe("At Platform");
     });
 
   });
@@ -170,6 +181,10 @@ describe("Predictions", function() {
 
     it("should display the welcome message when given type is 'welcome'", function() {
       expect(instance.statusText("welcome")).toBe("Please choose a station.");
+    });
+
+    it("should display the empty message when given type is 'empty'", function() {
+      expect(instance.statusText("empty")).toBe("There are no arrivals or departures scheduled from this station.");
     });
 
   });

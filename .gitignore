@@ -13,4 +13,5 @@ bower_components
 heroku
 heroku.pub
 
+config.json
 test/spec/bundle.js

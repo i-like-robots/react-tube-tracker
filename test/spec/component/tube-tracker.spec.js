@@ -37,7 +37,7 @@ describe("Tube Tracker", function() {
   });
 
   describe("initial state", function() {
-    var stubs = ["?line=Z&station=XYZ", "?line=C&station=ROD"];
+    var stubs = ["?line=foobar&station=123GZZLUXYZ", "?line=district&station=940GZZLUEMB"];
 
     beforeEach(function() {
       // A convenient way to test multiple stubs
@@ -51,8 +51,8 @@ describe("Tube Tracker", function() {
     });
 
     it("should set the line/station when the provided data is valid", function() {
-      expect(instance.state.line).toBe("C");
-      expect(instance.state.station).toBe("ROD");
+      expect(instance.state.line).toBe("district");
+      expect(instance.state.station).toBe("940GZZLUEMB");
     });
 
   });
@@ -66,13 +66,13 @@ describe("Tube Tracker", function() {
 
     it("should not set the line/station when received data is invalid", function() {
       // There is no easy way to simulate custom events but component methods can be called directly
-      instance.handleUpdate({ detail: { line: "Z", station: "XYZ" } });
+      instance.handleUpdate({ detail: { line: "foobar", station: "123GZZLUXYZ" } });
       expect(window.history.pushState).not.toHaveBeenCalled();
     });
 
     it("should set the line/station when received data is valid", function() {
-      instance.handleUpdate({ detail: { line: "C", station: "ROD" } });
-      expect(window.history.pushState).toHaveBeenCalledWith(null, null, "?line=C&station=ROD");
+      instance.handleUpdate({ detail: { line: "district", station: "940GZZLUEMB" } });
+      expect(window.history.pushState).toHaveBeenCalledWith(null, null, "?line=district&station=940GZZLUEMB");
     });
 
   });

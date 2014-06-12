@@ -54,10 +54,10 @@ describe("Network", function() {
 
     beforeEach(function() {
       // Must be rendered to the container so that event listeners can be added
-      instance = React.renderComponent(<Line networkData={networkData} lineCode="C" />, container);
+      instance = React.renderComponent(<Line networkData={networkData} lineCode="district" />, container);
       container.addEventListener("tt:update", submitSpy, false);
 
-      instance.refs.station.getDOMNode().value = "ROD";
+      instance.refs.station.getDOMNode().value = "940GZZLUEMB";
       TestUtils.Simulate.submit(instance.getDOMNode());
     });
 
@@ -67,15 +67,15 @@ describe("Network", function() {
 
     it("should display the line name for the given line code", function() {
       var legend = TestUtils.findRenderedDOMComponentWithTag(instance, "legend");
-      expect(legend.getDOMNode().textContent).toBe("Central");
+      expect(legend.getDOMNode().textContent).toBe("District");
     });
 
     it("should trigger a custom event with selected line and station", function() {
       expect(submitSpy).toHaveBeenCalled();
       expect(submitSpy).toHaveBeenCalledWith(jasmine.any(CustomEvent));
       expect(submitSpy.calls.argsFor(0).pop().detail).toEqual(jasmine.objectContaining({
-        station: "ROD",
-        line: "C"
+        station: "940GZZLUEMB",
+        line: "district"
       }));
     });
 

@@ -7,8 +7,7 @@ var utils = require("../common/utils");
 var TubeTracker = React.createClass({
 
   validateUserInput: function(line, station) {
-    return /^[A-Z]{1}$/.test(line) && /^[A-Z]{3}$/.test(station) &&
-      utils.isStationOnLine(line, station, this.props.networkData);
+    return utils.isStationOnLine(line, station, this.props.networkData);
   },
 
   formatAndValidateUserInput: function(userLine, userStation) {
@@ -64,7 +63,7 @@ var TubeTracker = React.createClass({
           <Network networkData={this.props.networkData} />
         </div>
         <div className="layout__content">
-          <Predictions line={this.state.line} station={this.state.station} networkData={this.props.networkData} />
+          <Predictions line={this.state.line} station={this.state.station} config={this.props.config} networkData={this.props.networkData} />
         </div>
       </div>
     );

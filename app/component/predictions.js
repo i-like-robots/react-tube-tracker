@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require("react");
-var Prediction = require("../model/prediction");
 var utils = require("../common/utils");
+var APIResponse = require("../common/api-response");
 
 var Predictions = React.createClass({
 
@@ -10,17 +10,11 @@ var Predictions = React.createClass({
   },
 
   fetchPredictions: function(line, station) {
-    // The circle line isn't defined in the API but shares platforms with other lines
-    if (line === "O") {
-      line = utils.mapCircleLineStation(station, this.props.networkData);
-    }
-
-    var api = "http://cloud.tfl.gov.uk/TrackerNet/PredictionDetailed/" + line + "/" + station;
+    var api = utils.apiRequestURL(this.props.line, this.props.station, this.props.config);
 
     this.setState({ status: "loading" });
 
-    // The TrackerNet API does not support cross-origin requests so we must use a proxy
-    utils.httpRequest(utils.proxyRequestURL(api), this.predictionsSuccess, this.predictionsError);
+    utils.httpRequest(api, this.predictionsSuccess, this.predictionsError);
   },
 
   predictionsError: function(error) {
@@ -33,19 +27,16 @@ var Predictions = React.createClass({
     // Airbrake.push({ error: error });
   },
 
-  predictionsSuccess: function(responseDoc) {
-    // Because we're using a proxy it will return a 200 and XML even if the
-    // TrackerNet API is unavailable or request was invalid.
-    if (!utils.validateResponse(responseDoc)) {
-      return this.predictionsError(new Error("Invalid API response"));
+  predictionsSuccess: function(responseData) {
+    var predictionData = utils.parseJSON(responseData);
+
+    if (predictionData instanceof Error) {
+      return this.predictionsError(predictionData);
     }
 
     this.setState({
-      status: "success",
-
-      // Dealing with XML in the browser is so ugly that I've
-      // used 'models' to abstract it away.
-      predictionData: new Prediction(responseDoc)
+      status: predictionData.length ? "success" : "empty",
+      predictionData: new APIResponse(predictionData)
     });
   },
 
@@ -93,13 +84,12 @@ var DepartureBoard = React.createClass({
 
   render: function() {
     var predictionData = this.props.predictionData;
-    var station = predictionData.station();
 
-    var generatedPlatforms = station.platforms().map(function(platform) {
+    var generatedPlatforms = predictionData.platforms().map(function(platform, i) {
       return (
-        <div className="platform" key={"platform-" + platform.number()}>
-          <h2 className="platform__heading">{platform.name()}</h2>
-          <Trains trains={platform.trains()} />
+        <div className="platform" key={"platform-" + i}>
+          <h2 className="platform__heading">{platform}</h2>
+          <Trains trains={predictionData.arrivalsAtPlatform(platform)} />
         </div>
       );
     });
@@ -107,7 +97,7 @@ var DepartureBoard = React.createClass({
     // Heading does not account for circle line mapping, meh
     return (
       <div className="departures">
-        <h1 className="departures__heading">{station.name() + " " + predictionData.line()}</h1>
+        <h1 className="departures__heading">{predictionData.station()}</h1>
         {generatedPlatforms}
       </div>
     );
@@ -119,11 +109,13 @@ var Trains = React.createClass({
 
   render: function() {
     var generatedTrains = this.props.trains.map(function(train) {
+      var timeTo = utils.formattedTimeUntil(train.timeToStation);
+
       return (
-        <tr className="trains__arrival" key={"train-" + train.id()}>
-          <td>{train.timeTo()}</td>
-          <td>{train.destination()}</td>
-          <td>{train.location()}</td>
+        <tr className="trains__arrival" key={"train-" + train.vehicleId}>
+          <td>{timeTo === "0:00" ? "-" : timeTo}</td>
+          <td>{train.destinationName}</td>
+          <td>{train.currentLocation}</td>
         </tr>
       );
     });
@@ -156,7 +148,10 @@ var Notice = React.createClass({
         text = "Sorry an error occurred, please try again.";
         break;
       case "loading":
-        text = "Loading predictions…"
+        text = "Loading predictions…";
+        break;
+      case "empty":
+        text = "There are no arrivals or departures scheduled from this station.";
         break;
       case "welcome":
         text = "Please choose a station.";

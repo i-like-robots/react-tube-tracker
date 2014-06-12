@@ -371,6 +371,11 @@ button:active {
   border-color: #D82B34;
 }
 
+.notice--empty {
+  background: #FDFDF2;
+  border-color: #EBEB7B;
+}
+
 .notice p {
   margin-bottom: 0;
 }
