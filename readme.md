@@ -15,8 +15,9 @@ This is a simple application to check the predicted arrival times of trains at s
 
 1. Clone or download this repository
 2. Install dependencies with `npm install`
-3. Run `npm start` or `node server.js`
-4. Open your browser and navigate to `http://localhost:8080`
+3. Copy the example config and enter your API credentials `cp config.example.json config.json`
+4. Run `npm start` or `node server.js`
+5. Open your browser and navigate to `http://localhost:8080`
 
 ## Demo
 
