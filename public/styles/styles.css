@@ -167,47 +167,47 @@ button:active {
   border-left: 6px solid;
 }
 
-.network__line--b {
+.network__line--bakerloo {
   border-left-color: #894E24;
 }
 
-.network__line--c {
+.network__line--central {
   border-left-color: #DC241F;
 }
 
-.network__line--o {
+.network__line--circle {
   border-left-color: #FFCE00;
 }
 
-.network__line--d {
+.network__line--district {
   border-left-color: #007229;
 }
 
-.network__line--h {
+.network__line--hammersmith-city {
   border-left-color: #D799AF;
 }
 
-.network__line--j {
+.network__line--jubilee {
   border-left-color: #6A7278;
 }
 
-.network__line--m {
+.network__line--metropolitan {
   border-left-color: #751056;
 }
 
-.network__line--n {
+.network__line--northern {
   border-left-color: #111;
 }
 
-.network__line--p {
+.network__line--piccadilly {
   border-left-color: #0019A8;
 }
 
-.network__line--v {
+.network__line--victoria {
   border-left-color: #00A0E2;
 }
 
-.network__line--w {
+.network__line--waterloo-city {
   border-left-color: #76D0BD;
 }
 

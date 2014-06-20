@@ -1,4 +1,5 @@
 var http = require("http");
+var data = require("../common/data");
 
 function APIRequest(config) {
   this.config = config;
@@ -12,8 +13,10 @@ APIRequest.prototype.for = function(line, station) {
 };
 
 APIRequest.prototype.get = function(callback) {
+  var formatCallback = this.format.bind(this);
   var path = "/Line/" + this.line + "/Arrivals/" + this.station;
   var queryString = "?app_id=" + this.config.APP_ID + "&app_key=" + this.config.APP_KEY;
+
   var options = {
     path: path + queryString,
     hostname: "api.beta.tfl.gov.uk",
@@ -25,12 +28,12 @@ APIRequest.prototype.get = function(callback) {
 
     response.setEncoding("utf8");
 
-    response.on("data", function(data) {
-      str+= data;
+    response.on("data", function(chunk) {
+      str+= chunk;
     });
 
     response.on("end", function() {
-      callback(null, formatData(parseResponse(str)));
+      callback(null, formatCallback(str));
     });
   });
 
@@ -41,23 +44,33 @@ APIRequest.prototype.get = function(callback) {
   request.end();
 };
 
-function parseResponse(data) {
+APIRequest.prototype.format = function(responseText) {
+  return {
+    request: {
+      line: data.lines[this.line],
+      name: data.stations[this.station]
+    },
+    platforms: formatData(parseResponse(responseText))
+  };
+};
+
+function parseResponse(responseText) {
   var jsonData;
 
   try {
-    jsonData = JSON.parse(data);
+    jsonData = JSON.parse(responseText);
   }
   catch(e) {
     return new Error("Data could not be parsed");
   }
 
   return jsonData;
-}
+};
 
-function formatData(data) {
+function formatData(responseData) {
   var formattedData = {};
 
-  var sortedData = data.sort(function(a, b) {
+  var sortedData = responseData.sort(function(a, b) {
     return a.timeToStation - b.timeToStation;
   });
 
@@ -67,6 +80,6 @@ function formatData(data) {
   });
 
   return formattedData;
-}
+};
 
 module.exports = APIRequest;

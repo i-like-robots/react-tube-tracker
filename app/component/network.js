@@ -78,7 +78,7 @@ var Line = React.createClass({
 
     return (
       <form ref="form" onSubmit={this.handleSubmit}>
-        <fieldset className={"network__line network__line--" + lineCode.toLowerCase()}>
+        <fieldset className={"network__line network__line--" + lineCode}>
           <legend>{networkData.lines[lineCode]}</legend>
           <input type="hidden" name="line" value={lineCode} />
           <select name="station" ref="station">{generatedOptions}</select>
