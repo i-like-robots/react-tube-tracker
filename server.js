@@ -1,8 +1,25 @@
+var config = require("./config");
 var express = require("express");
 var API = require("./app/server/api");
-var config = require("./config");
-var app = express();
 
+// Start JSX transforms after loading non-JSX dependencies
+require("node-jsx").install();
+
+// Start a new app
+var app = express();
+var Bootstrap = require("./app/server/bootstrap");
+
+// Static assets
+app.use(function(req, res, next) {
+  if (req.url === "/scripts/bundle.js") {
+    var pkg = app.get("env") === "development" ? "dev" : "min";
+    req.url = "/scripts/bundle." + pkg + ".js";
+  }
+
+  next();
+});
+
+// API Proxy
 app.get("/api/:line/:station", function(req, res) {
   new API(config).for(req.params.line, req.params.station).get(function(err, data) {
     if (err) {
@@ -13,15 +30,21 @@ app.get("/api/:line/:station", function(req, res) {
   });
 });
 
-// Serve static assets
-app.set("js", app.get("env") === "development" ? "dev" : "min");
+// Serve initial HTML
+app.get("/", function(req, res) {
+  new API(config).for(req.query.line, req.query.station).get(function(err, data) {
+    if (err) {
+      return res.send(500, "Internal error");
+    }
 
-app.use(function(req, res, next) {
-  if (req.url === "/scripts/bundle.js") {
-    req.url = "/scripts/bundle." + app.get("js") + ".js";
-  }
+    new Bootstrap(data).load(function(err, responseHTML) {
+      if (err) {
+        return res.send(500, "Internal error");
+      }
 
-  next();
+      res.send(responseHTML);
+    });
+  });
 });
 
 app.use(express.static("./public"));

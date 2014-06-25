@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require("react");
-var data = require("../common/data");
+var networkData = require("../common/data");
 var TubeTracker = require("../component/tube-tracker");
 
 window.app = (function(scope) {
@@ -17,5 +17,5 @@ window.app = (function(scope) {
     }
   }
 
-  return React.renderComponent(<TubeTracker networkData={data} />, document.body);
+  return React.renderComponent(<TubeTracker networkData={networkData} initialData={null} />, document.body);
 })();

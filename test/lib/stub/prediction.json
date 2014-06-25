@@ -1,7 +1,11 @@
 {
   "request":{
-    "line":"District",
-    "name":"Embankment"
+    "lineCode":"district",
+    "stationCode":"940GZZLUEMB"
+  },
+  "station":{
+    "lineName":"District",
+    "stationName":"Embankment"
   },
   "platforms":{
     "Eastbound - Platform 2":[

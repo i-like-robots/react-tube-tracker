@@ -1,9 +1,9 @@
 var http = require("http");
-var data = require("../common/data");
+var utils = require("../common/utils");
+var networkData = require("../common/data");
 
 function APIRequest(config) {
   this.config = config;
-  return this;
 }
 
 APIRequest.prototype.for = function(line, station) {
@@ -13,6 +13,10 @@ APIRequest.prototype.for = function(line, station) {
 };
 
 APIRequest.prototype.get = function(callback) {
+  if (!utils.isStationOnLine(this.line, this.station, networkData)) {
+    callback(null, null);
+  }
+
   var formatCallback = this.format.bind(this);
   var path = "/Line/" + this.line + "/Arrivals/" + this.station;
   var queryString = "?app_id=" + this.config.APP_ID + "&app_key=" + this.config.APP_KEY;
@@ -47,8 +51,12 @@ APIRequest.prototype.get = function(callback) {
 APIRequest.prototype.format = function(responseText) {
   return {
     request: {
-      line: data.lines[this.line],
-      name: data.stations[this.station]
+      lineCode: this.line,
+      stationCode: this.station
+    },
+    station: {
+      lineName: networkData.lines[this.line],
+      stationName: networkData.stations[this.station]
     },
     platforms: formatData(parseResponse(responseText))
   };

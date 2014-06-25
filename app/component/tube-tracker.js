@@ -6,17 +6,13 @@ var utils = require("../common/utils");
 
 var TubeTracker = React.createClass({
 
-  validateUserInput: function(line, station) {
-    return utils.isStationOnLine(line, station, this.props.networkData);
-  },
-
   formatAndValidateUserInput: function(userLine, userStation) {
     var line = null;
     var station = null;
 
     // We could have added extra states for invalid data
     // but it's easier simply to ignore it.
-    if (this.validateUserInput(userLine, userStation)) {
+    if (utils.isStationOnLine(userLine, userStation, this.props.networkData)) {
       line = userLine;
       station = userStation;
     }
@@ -28,9 +24,11 @@ var TubeTracker = React.createClass({
   },
 
   getInitialState: function() {
+    var initialData = this.props.initialData;
+
     return this.formatAndValidateUserInput(
-      utils.queryStringProperty(utils.getQueryString(), "line"),
-      utils.queryStringProperty(utils.getQueryString(), "station")
+      initialData ? initialData.request.lineCode : null,
+      initialData ? initialData.request.stationCode : null
     );
   },
 
@@ -48,7 +46,7 @@ var TubeTracker = React.createClass({
     window.history.pushState(null, null, utils.formatQueryString(newState));
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     window.addEventListener("tt:update", this.handleUpdate, false);
   },
 

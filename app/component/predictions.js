@@ -77,7 +77,7 @@ var Predictions = React.createClass({
 var DepartureBoard = React.createClass({
 
   render: function() {
-    var request = this.props.predictionData.request;
+    var station = this.props.predictionData.station;
     var platforms = this.props.predictionData.platforms;
 
     var generatedPlatforms = Object.keys(platforms).map(function(platform, i) {
@@ -91,7 +91,7 @@ var DepartureBoard = React.createClass({
 
     return (
       <div className="departures">
-        <h1 className="departures__heading">{request.name + " Station, " + request.line + " Line"}</h1>
+        <h1 className="departures__heading">{station.stationName + " Station, " + station.lineName + " Line"}</h1>
         {generatedPlatforms}
       </div>
     );

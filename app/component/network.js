@@ -6,7 +6,7 @@ var Network = React.createClass({
 
   getInitialState: function() {
     return {
-      collapsible: window.innerWidth <= 800,
+      collapsible: global ? false : window.innerWidth <= 800,
       open: false
     };
   },
@@ -19,7 +19,7 @@ var Network = React.createClass({
     this.setState({ collapsible: window.innerWidth <= 800 });
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     // Simple event debouncing to avoid multiple recalculations
     this.debounce = utils.debounceEvent(this.handleResize, 250);
     window.addEventListener("resize", this.debounce, false);

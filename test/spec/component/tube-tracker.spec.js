@@ -37,12 +37,24 @@ describe("Tube Tracker", function() {
   });
 
   describe("initial state", function() {
-    var stubs = ["?line=Z&station=XYZ", "?line=district&station=940GZZLUEMB"];
+    var stubs = [
+      {
+        request: {
+          lineCode: "distract",
+          stationCode: "940GZZLUXYZ"
+        }
+      },
+      {
+        request: {
+          lineCode: "district",
+          stationCode: "940GZZLUEMB"
+        }
+      }
+    ];
 
     beforeEach(function() {
       // A convenient way to test multiple stubs
-      spyOn(TubeTracker.__get__("utils"), "getQueryString").and.returnValue(stubs.shift());
-      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} />);
+      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} initialData={stubs.shift()} />);
     });
 
     it("should not set the line/station when the provided data is invalid", function() {
@@ -61,12 +73,12 @@ describe("Tube Tracker", function() {
 
     beforeEach(function() {
       spyOn(window.history, "pushState").and.stub();
-      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} />);
+      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} initialData={null} />);
     });
 
     it("should not set the line/station when received data is invalid", function() {
       // There is no easy way to simulate custom events but component methods can be called directly
-      instance.handleUpdate({ detail: { line: "Z", station: "XYZ" } });
+      instance.handleUpdate({ detail: { line: "distract", station: "940GZZLUXYZ" } });
       expect(window.history.pushState).not.toHaveBeenCalled();
     });
 

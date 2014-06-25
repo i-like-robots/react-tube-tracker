@@ -18,7 +18,7 @@ describe("Predictions", function() {
     jasmine.Ajax.stubRequest("api/success").andReturn({
       status: 200,
       contentType: "text/json",
-      responseText: "{\"station\":{},\"platforms\":{}}"
+      responseText: "{\"request\":{},\"station\":{},\"platforms\":{}}"
     });
 
     jasmine.Ajax.stubRequest("api/failure").andReturn({ status: 500 });
