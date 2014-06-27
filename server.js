@@ -9,16 +9,6 @@ require("node-jsx").install();
 var app = express();
 var Bootstrap = require("./app/server/bootstrap");
 
-// Static assets
-app.use(function(req, res, next) {
-  if (req.url === "/scripts/bundle.js") {
-    var pkg = app.get("env") === "development" ? "dev" : "min";
-    req.url = "/scripts/bundle." + pkg + ".js";
-  }
-
-  next();
-});
-
 // API Proxy
 app.get("/api/:line/:station", function(req, res) {
   new API(config).for(req.params.line, req.params.station).get(function(err, data) {
@@ -45,6 +35,16 @@ app.get("/", function(req, res) {
       res.send(responseHTML);
     });
   });
+});
+
+// Static assets
+app.use(function(req, res, next) {
+  if (req.url === "/scripts/bundle.js") {
+    var pkg = app.get("env") === "development" ? "dev" : "min";
+    req.url = "/scripts/bundle." + pkg + ".js";
+  }
+
+  next();
 });
 
 app.use(express.static("./public"));

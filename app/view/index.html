@@ -13,8 +13,9 @@
   </head>
   <body>
 
-    {{yield}}
+    {{yield:app}}
 
+    <script type="application/json" id="initial-data">{{yield:data}}</script>
     <script src="scripts/bundle.js"></script>
 
   </body>

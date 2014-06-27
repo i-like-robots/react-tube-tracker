@@ -5,21 +5,20 @@ function Template(target) {
   this.target = target;
 }
 
-Template.prototype.with = function(data) {
-  this.data = data;
-  return this;
-};
-
-Template.prototype.render = function(callback) {
+Template.prototype.render = function(data, callback) {
   var fullPath = path.resolve(__dirname, this.target);
 
-  fs.readFile(fullPath, { encoding: "utf8" }, function(err, data) {
+  fs.readFile(fullPath, { encoding: "utf8" }, function(err, template) {
     if (err) {
       return callback(err);
     }
 
-    callback(null, data.replace("{{yield}}", this.data));
-  }.bind(this));
+    var rendered = template.replace(/\{\{yield:([a-z0-9_]+)\}\}/g, function(match, property) {
+      return data[property];
+    });
+
+    callback(null, rendered);
+  });
 };
 
 module.exports = Template;

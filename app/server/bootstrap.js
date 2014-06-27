@@ -10,7 +10,7 @@ function Bootstrap(data) {
 
 Bootstrap.prototype.load = function(callback) {
   var staticHTML = React.renderComponentToString(<TubeTracker networkData={networkData} initialData={this.data} />);
-  new Template("../view/index.html").with(staticHTML).render(callback);
+  new Template("../view/index.html").render({ app: staticHTML, data: JSON.stringify(this.data) }, callback);
 };
 
 module.exports = Bootstrap;

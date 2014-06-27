@@ -5,7 +5,10 @@ var utils = require("../common/utils");
 var Predictions = React.createClass({
 
   getInitialState: function() {
-    return { status: this.props.line && this.props.station ? "loading" : "welcome" };
+    return {
+      status: this.props.initialData ? "success" : "welcome",
+      predictionData: this.props.initialData
+    };
   },
 
   fetchPredictions: function(line, station) {

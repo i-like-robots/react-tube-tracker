@@ -5,6 +5,7 @@ var TubeTracker = require("../component/tube-tracker");
 
 window.app = (function(scope) {
   var requiredFeatures = {
+    "JSON decoding": window.JSON,
     "the selectors API": document.querySelector,
     "ES5 array methods": Array.prototype.forEach,
     "DOM level 2 events": window.addEventListener,
@@ -17,5 +18,6 @@ window.app = (function(scope) {
     }
   }
 
-  return React.renderComponent(<TubeTracker networkData={networkData} initialData={null} />, document.body);
+  var initialData = JSON.parse(document.getElementById("initial-data").innerHTML);
+  return React.renderComponent(<TubeTracker networkData={networkData} initialData={initialData} />, document.body);
 })();

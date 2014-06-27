@@ -61,7 +61,7 @@ var TubeTracker = React.createClass({
           <Network networkData={this.props.networkData} />
         </div>
         <div className="layout__content">
-          <Predictions line={this.state.line} station={this.state.station} networkData={this.props.networkData} />
+          <Predictions line={this.state.line} station={this.state.station} networkData={this.props.networkData} initialData={this.props.initialData} />
         </div>
       </div>
     );
