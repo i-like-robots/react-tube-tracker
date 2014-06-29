@@ -4,8 +4,8 @@ This is a simple application to check the predicted arrival times of trains at s
 
 1. [In-browser prototype][part1] ([Download source code][tag1])
 2. [Optimising for the browser][part2] ([Download source code][tag2])
-3. [Testing][part3] ([Download source code][tag3])
-4. Server hybrid (coming soon)
+3. [Testing with Jasmine][part3] ([Download source code][tag3])
+4. [Server-side rendering][part4] ([Download source code][tag4])
 
 ## Dependencies
 
@@ -24,11 +24,13 @@ This is a simple application to check the predicted arrival times of trains at s
 You can test [the demo][demo] in the your browser now.
 
 [1]: http://facebook.github.io/react/
-[2]: http://www.tfl.gov.uk/businessandpartners/syndication/
+[2]: http://cloud.tfl.gov.uk/TrackerNet/LineStatus
 [part1]: http://maketea.co.uk/2014/03/05/building-robust-web-apps-with-react-part-1.html
 [part2]: http://maketea.co.uk/2014/04/07/building-robust-web-apps-with-react-part-2.html
 [part3]: http://maketea.co.uk/2014/05/22/building-robust-web-apps-with-react-part-3.html
+[part4]: http://maketea.co.uk/2014/06/30/building-robust-web-apps-with-react-part-4.html
 [tag1]: https://github.com/i-like-robots/react-tube-tracker/releases/tag/prototype
 [tag2]: https://github.com/i-like-robots/react-tube-tracker/releases/tag/optimise
 [tag3]: https://github.com/i-like-robots/react-tube-tracker/releases/tag/testing
+[tag4]: https://github.com/i-like-robots/react-tube-tracker/releases/tag/isomorphic
 [demo]: http://react-tube-tracker.herokuapp.com/
