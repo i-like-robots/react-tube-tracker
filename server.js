@@ -1,9 +1,9 @@
 require("node-jsx").install({ extension: ".jsx" });
 
-var config = require("./config");
 var express = require("express");
 var API = require("./app/server/api");
 var Bootstrap = require("./app/server/bootstrap.jsx");
+var config = process.env.APP_ID && process.env.APP_KEY ? process.env : require("./config");
 
 // Start a new app
 var app = express();
