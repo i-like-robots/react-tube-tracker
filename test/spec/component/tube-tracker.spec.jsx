@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require("react/addons");
-var TubeTracker = require("../../../app/component/tube-tracker");
 var networkData = require("../../../app/common/data");
+var TubeTracker = require("../../../app/component/tube-tracker.jsx");
 
 var stubComponent = require("../../lib/stub/component");
 var stubPrediction = require("../../lib/stub/prediction");

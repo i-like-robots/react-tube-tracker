@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 var React = require("react");
-var Predictions = require("./predictions");
-var Network = require("./network");
 var utils = require("../common/utils");
+var Network = require("./network.jsx");
+var Predictions = require("./predictions.jsx");
 
 var TubeTracker = React.createClass({
 

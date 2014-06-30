@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require("react");
 var networkData = require("../common/data");
-var TubeTracker = require("../component/tube-tracker");
+var TubeTracker = require("../component/tube-tracker.jsx");
 
 window.app = (function(scope) {
   var requiredFeatures = {

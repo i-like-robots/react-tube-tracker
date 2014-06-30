@@ -1,13 +1,12 @@
+require("node-jsx").install({ extension: ".jsx" });
+
 var config = require("./config");
 var express = require("express");
 var API = require("./app/server/api");
-
-// Start JSX transforms after loading non-JSX dependencies
-require("node-jsx").install();
+var Bootstrap = require("./app/server/bootstrap.jsx");
 
 // Start a new app
 var app = express();
-var Bootstrap = require("./app/server/bootstrap");
 
 // API Proxy
 app.get("/api/:line/:station", function(req, res) {
@@ -24,12 +23,12 @@ app.get("/api/:line/:station", function(req, res) {
 app.get("/", function(req, res) {
   new API(config).for(req.query.line, req.query.station).get(function(err, data) {
     if (err) {
-      return res.send(500, "Internal error");
+      return res.send(500, "API error");
     }
 
     new Bootstrap(data).load(function(err, responseHTML) {
       if (err) {
-        return res.send(500, "Internal error");
+        return res.send(500, "Template error");
       }
 
       res.send(responseHTML);

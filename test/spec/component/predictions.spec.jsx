@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require("react/addons");
-var Predictions = require("../../../app/component/predictions");
+var Predictions = require("../../../app/component/predictions.jsx");
 
 var stubComponent = require("../../lib/stub/component");
 var stubPrediction = require("../../lib/stub/prediction");

@@ -2,7 +2,7 @@
 var React = require("react");
 var networkData = require("../common/data");
 var Template = require("../server/template");
-var TubeTracker = require("../component/tube-tracker");
+var TubeTracker = require("../component/tube-tracker.jsx");
 
 function Bootstrap(data) {
   this.data = data;
