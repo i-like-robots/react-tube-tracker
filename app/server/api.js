@@ -14,7 +14,7 @@ APIRequest.prototype.for = function(line, station) {
 
 APIRequest.prototype.get = function(callback) {
   if (!utils.isStationOnLine(this.line, this.station, networkData)) {
-    callback(null, null);
+    return callback(null, "");
   }
 
   var formatCallback = this.format.bind(this);
@@ -23,8 +23,7 @@ APIRequest.prototype.get = function(callback) {
 
   var options = {
     path: path + queryString,
-    hostname: "api.beta.tfl.gov.uk",
-    headers: { "Content-Type": "application/json" }
+    hostname: "api.beta.tfl.gov.uk"
   };
 
   var request = http.request(options, function(response) {
@@ -37,7 +36,14 @@ APIRequest.prototype.get = function(callback) {
     });
 
     response.on("end", function() {
-      callback(null, formatCallback(str));
+      var responseJSON = formatCallback(str);
+
+      if (responseJSON instanceof Error) {
+        callback(responseJSON, null);
+      }
+      else {
+        callback(null, responseJSON);
+      }
     });
   });
 
@@ -48,7 +54,13 @@ APIRequest.prototype.get = function(callback) {
   request.end();
 };
 
-APIRequest.prototype.format = function(responseText) {
+APIRequest.prototype.format = function(responseText, callback) {
+  var parsedResponse = parseResponse(responseText);
+
+  if (parsedResponse instanceof Error) {
+    return parsedResponse;
+  }
+
   return {
     request: {
       lineCode: this.line,
@@ -58,7 +70,7 @@ APIRequest.prototype.format = function(responseText) {
       lineName: networkData.lines[this.line],
       stationName: networkData.stations[this.station]
     },
-    platforms: formatData(parseResponse(responseText))
+    platforms: formatData(parsedResponse)
   };
 };
 
