@@ -14,7 +14,7 @@ exports.httpRequest = function(url, success, error) {
 
   request.onload = function() {
     if (this.status === 200) {
-      success(this.responseXML);
+      success(this.responseText);
     }
     else {
       error(new Error(this.status));
@@ -22,19 +22,20 @@ exports.httpRequest = function(url, success, error) {
   };
 
   request.onerror = function() {
-    error(this.status);
+    error(new Error(this.status));
   };
 
   request.send();
 };
 
-exports.proxyRequestURL = function(url) {
-  var query = "select * from xml where url='" + url + "'";
-  return "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(query);
+exports.apiRequestURL = function(line, station) {
+  return "/api/" + line + "/" + station;
 };
 
-exports.validateResponse = function(responseDoc) {
-  return responseDoc.getElementsByTagName("S").length === 1;
+exports.formattedTimeUntil = function(timeTo) {
+  var minutes = Math.round(timeTo / 60);
+  var seconds = Math.round((timeTo - (minutes * 60)) / 30) * 30;
+  return "" + minutes + ":" + (seconds < 10 ? "0" : "") + (seconds > 0 ? seconds : "0");
 };
 
 exports.getQueryString = function() {
@@ -77,8 +78,4 @@ exports.isStation = function(station, data) {
 exports.isStationOnLine = function(line, station, data) {
   return this.isLine(line, data) && this.isStation(station, data) &&
     data.stationsOnLines[line].indexOf(station) >= 0;
-};
-
-exports.mapCircleLineStation = function(station, data) {
-  return data.circleLineMap[station];
 };

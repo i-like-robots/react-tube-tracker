@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
 
-    <meta name="viewport" value="width=device-width, initial-scale=1">
+    <meta name="viewport" value="width=device-width">
 
     <title>TfL London Underground</title>
 
@@ -13,6 +13,9 @@
   </head>
   <body>
 
+    {{yield:app}}
+
+    <script type="application/json" id="initial-data">{{yield:data}}</script>
     <script src="scripts/bundle.js"></script>
 
   </body>

@@ -23,7 +23,7 @@ module.exports = function stub(mount, unmount) {
   return React.createClass({
     mixins: mixins,
     render: function() {
-      return <div />;
+      return React.DOM.div();
     }
   });
 };

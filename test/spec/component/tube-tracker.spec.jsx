@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require("react/addons");
-var TubeTracker = require("../../../app/component/tube-tracker");
-var networkData = require("../../../app/data");
+var networkData = require("../../../app/common/data");
+var TubeTracker = require("../../../app/component/tube-tracker.jsx");
 
 var stubComponent = require("../../lib/stub/component");
 var stubPrediction = require("../../lib/stub/prediction");
@@ -37,12 +37,24 @@ describe("Tube Tracker", function() {
   });
 
   describe("initial state", function() {
-    var stubs = ["?line=Z&station=XYZ", "?line=C&station=ROD"];
+    var stubs = [
+      {
+        request: {
+          lineCode: "distract",
+          stationCode: "940GZZLUXYZ"
+        }
+      },
+      {
+        request: {
+          lineCode: "district",
+          stationCode: "940GZZLUEMB"
+        }
+      }
+    ];
 
     beforeEach(function() {
       // A convenient way to test multiple stubs
-      spyOn(TubeTracker.__get__("utils"), "getQueryString").and.returnValue(stubs.shift());
-      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} />);
+      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} initialData={stubs.shift()} />);
     });
 
     it("should not set the line/station when the provided data is invalid", function() {
@@ -51,8 +63,8 @@ describe("Tube Tracker", function() {
     });
 
     it("should set the line/station when the provided data is valid", function() {
-      expect(instance.state.line).toBe("C");
-      expect(instance.state.station).toBe("ROD");
+      expect(instance.state.line).toBe("district");
+      expect(instance.state.station).toBe("940GZZLUEMB");
     });
 
   });
@@ -61,18 +73,18 @@ describe("Tube Tracker", function() {
 
     beforeEach(function() {
       spyOn(window.history, "pushState").and.stub();
-      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} />);
+      instance = TestUtils.renderIntoDocument(<TubeTracker networkData={networkData} initialData={null} />);
     });
 
     it("should not set the line/station when received data is invalid", function() {
       // There is no easy way to simulate custom events but component methods can be called directly
-      instance.handleUpdate({ detail: { line: "Z", station: "XYZ" } });
+      instance.handleUpdate({ detail: { line: "distract", station: "940GZZLUXYZ" } });
       expect(window.history.pushState).not.toHaveBeenCalled();
     });
 
     it("should set the line/station when received data is valid", function() {
-      instance.handleUpdate({ detail: { line: "C", station: "ROD" } });
-      expect(window.history.pushState).toHaveBeenCalledWith(null, null, "?line=C&station=ROD");
+      instance.handleUpdate({ detail: { line: "district", station: "940GZZLUEMB" } });
+      expect(window.history.pushState).toHaveBeenCalledWith(null, null, "?line=district&station=940GZZLUEMB");
     });
 
   });

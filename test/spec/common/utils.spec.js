@@ -1,5 +1,5 @@
-var utils = require("../../../app/utils");
-var data = require("../../../app/data");
+var utils = require("../../../app/common/utils");
+var data = require("../../../app/common/data");
 
 describe("Utils", function() {
 
@@ -51,19 +51,16 @@ describe("Utils", function() {
         var success = jasmine.createSpy("success");
         var error = jasmine.createSpy("error");
 
-        var parser = new DOMParser;
-        var mockDoc = "<?xml version='1.0' encoding='UTF-8'?><fake>This is some XML</fake>";
-        var mockXML = parser.parseFromString(mockDoc, "text/xml");
+        var mockDoc = "{[{\"fake\":\"data\"}]}";
 
         jasmine.Ajax.stubRequest("a/fake/api").andReturn({
           contentType: "text/xml",
           responseText: mockDoc,
-          responseXML: mockXML
         });
 
         utils.httpRequest("a/fake/api", success, error);
 
-        expect(success).toHaveBeenCalledWith(mockXML);
+        expect(success).toHaveBeenCalledWith(mockDoc);
         expect(error).not.toHaveBeenCalled();
       });
 
@@ -71,25 +68,22 @@ describe("Utils", function() {
 
   });
 
-  describe("TrackerNet", function() {
+  describe("TfL API", function() {
 
-    describe(".proxyRequestURL()", function() {
+    describe(".apiRequestURL()", function() {
 
-      it("should create a URL for YQL because TrackerNet does not support CORS", function() {
-        var result = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D'http%3A%2F%2Fgoogle.com'";
-        expect(utils.proxyRequestURL("http://google.com")).toBe(result);
+      it("should return the request URL for the given line and station", function() {
+        expect(utils.apiRequestURL("district", "940GZZLUEMB")).toBe("/api/district/940GZZLUEMB");
       });
 
     });
 
-    describe(".validateResponse()", function() {
+    describe(".formattedTimeUntil()", function() {
 
-      it("should find the stations node in the given response document", function() {
-        var fragment = document.createElement("F");
-        var stations = document.createElement("S");
-        fragment.appendChild(stations);
-
-        expect(utils.validateResponse(fragment)).toBe(true);
+      it("should round the number of seconds to the nearest 30 seconds", function() {
+        expect(utils.formattedTimeUntil(120)).toBe("2:00");
+        expect(utils.formattedTimeUntil(145)).toBe("2:30");
+        expect(utils.formattedTimeUntil(165)).toBe("3:00");
       });
 
     });
@@ -128,11 +122,11 @@ describe("Utils", function() {
     describe(".isLine()", function() {
 
       it("should return true for a correct line", function() {
-        expect(utils.isLine("C", data)).toBe(true);
+        expect(utils.isLine("district", data)).toBe(true);
       });
 
       it("should return false for an incorrect line", function() {
-        expect(utils.isLine("Z", data)).toBe(false);
+        expect(utils.isLine("distract", data)).toBe(false);
       });
 
     });
@@ -140,11 +134,11 @@ describe("Utils", function() {
     describe(".isStation()", function() {
 
       it("should return true for a correct station", function() {
-        expect(utils.isStation("EMB", data)).toBe(true);
+        expect(utils.isStation("940GZZLUEMB", data)).toBe(true);
       });
 
       it("should return false for an incorrect station", function() {
-        expect(utils.isStation("XYZ", data)).toBe(false);
+        expect(utils.isStation("940GZZLUXYZ", data)).toBe(false);
       });
 
     });
@@ -152,19 +146,11 @@ describe("Utils", function() {
     describe(".isStationOnLine()", function() {
 
       it("should return true for a correct line and station", function() {
-        expect(utils.isStationOnLine("D", "EMB", data)).toBe(true);
+        expect(utils.isStationOnLine("district", "940GZZLUEMB", data)).toBe(true);
       });
 
       it("should return false for an incorrect line and station", function() {
-        expect(utils.isStationOnLine("P", "EMB", data)).toBe(false);
-      });
-
-    });
-
-    describe(".mapCircleLineStation()", function() {
-
-      it("should return the shared line", function() {
-        expect(utils.mapCircleLineStation("BST", data)).toBe("H");
+        expect(utils.isStationOnLine("distract", "940GZZLUXYZ", data)).toBe(false);
       });
 
     });

@@ -1,12 +1,12 @@
 /** @jsx React.DOM */
 var React = require("react");
-var utils = require("../utils");
+var utils = require("../common/utils");
 
 var Network = React.createClass({
 
   getInitialState: function() {
     return {
-      collapsible: window.innerWidth <= 800,
+      collapsible: global ? false : window.innerWidth <= 800,
       open: false
     };
   },
@@ -19,7 +19,7 @@ var Network = React.createClass({
     this.setState({ collapsible: window.innerWidth <= 800 });
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     // Simple event debouncing to avoid multiple recalculations
     this.debounce = utils.debounceEvent(this.handleResize, 250);
     window.addEventListener("resize", this.debounce, false);
@@ -78,7 +78,7 @@ var Line = React.createClass({
 
     return (
       <form ref="form" onSubmit={this.handleSubmit}>
-        <fieldset className={"network__line network__line--" + lineCode.toLowerCase()}>
+        <fieldset className={"network__line network__line--" + lineCode}>
           <legend>{networkData.lines[lineCode]}</legend>
           <input type="hidden" name="line" value={lineCode} />
           <select name="station" ref="station">{generatedOptions}</select>
