@@ -50,19 +50,9 @@ describe("Network", function() {
 
   describe("Line", function() {
     var Line = Network.__get__("Line");
-    var submitSpy = jasmine.createSpy();
 
     beforeEach(function() {
-      // Must be rendered to the container so that event listeners can be added
-      instance = React.renderComponent(<Line networkData={networkData} lineCode="district" />, container);
-      container.addEventListener("tt:update", submitSpy, false);
-
-      instance.refs.station.getDOMNode().value = "940GZZLUEMB";
-      TestUtils.Simulate.submit(instance.getDOMNode());
-    });
-
-    afterEach(function() {
-      container.removeEventListener("tt:update", submitSpy, false);
+      instance = TestUtils.renderIntoDocument(<Line networkData={networkData} lineCode="district" />);
     });
 
     it("should display the line name for the given line code", function() {
@@ -71,9 +61,14 @@ describe("Network", function() {
     });
 
     it("should trigger a custom event with selected line and station", function() {
-      expect(submitSpy).toHaveBeenCalled();
-      expect(submitSpy).toHaveBeenCalledWith(jasmine.any(CustomEvent));
-      expect(submitSpy.calls.argsFor(0).pop().detail).toEqual(jasmine.objectContaining({
+      var stubbedEvent = new CustomEvent("stub");
+      spyOn(window, "CustomEvent").and.returnValue(stubbedEvent);
+
+      instance.refs.station.getDOMNode().value = "940GZZLUEMB";
+      TestUtils.Simulate.submit(instance.getDOMNode());
+
+      expect(window.CustomEvent).toHaveBeenCalled();
+      expect(window.CustomEvent.calls.argsFor(0).pop().detail).toEqual(jasmine.objectContaining({
         station: "940GZZLUEMB",
         line: "district"
       }));
