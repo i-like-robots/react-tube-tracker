@@ -23,7 +23,7 @@ APIRequest.prototype.get = function(callback) {
 
   var options = {
     path: path + queryString,
-    hostname: "api.beta.tfl.gov.uk"
+    hostname: "api.tfl.gov.uk"
   };
 
   var request = http.request(options, function(response) {
@@ -49,6 +49,7 @@ APIRequest.prototype.get = function(callback) {
 
   request.on("error", function(err) {
     callback(err);
+    console.log(options.hostname + options.path);
   });
 
   request.end();
