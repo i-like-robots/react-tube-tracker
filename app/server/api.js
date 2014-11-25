@@ -18,7 +18,8 @@ APIRequest.prototype.get = function(callback) {
   }
 
   var formatCallback = this.format.bind(this);
-  var path = "/Line/" + this.line + "/Arrivals/" + this.station;
+  var groupedLines = utils.mergeGroupedLines(this.station, this.line, networkData);
+  var path = "/Line/" + groupedLines.join(",") + "/Arrivals/" + this.station;
   var queryString = "?app_id=" + this.config.APP_ID + "&app_key=" + this.config.APP_KEY;
 
   var options = {

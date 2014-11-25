@@ -154,7 +154,8 @@ describe("Predictions", function() {
       // The rendered DOM nodes can be accessed and inspected
       expect(columns[0].props.children).toBe("2:00");
       expect(columns[1].props.children).toBe("Upminster");
-      expect(columns[2].props.children).toBe("Approaching Westminster");
+      expect(columns[2].props.children).toBe("District");
+      expect(columns[3].props.children).toBe("Approaching Westminster");
     });
 
   });
