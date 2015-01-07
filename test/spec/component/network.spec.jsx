@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require("react/addons");
 var networkData = require("../../../app/common/data");
 var Network = require("../../../app/component/network.jsx");
@@ -9,7 +8,6 @@ var stubPrediction = require("../../lib/stub/prediction");
 describe("Network", function() {
 
   var instance;
-  var container = document.createElement("div");
   var TestUtils = React.addons.TestUtils;
 
   afterEach(function() {

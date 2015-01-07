@@ -3,21 +3,21 @@
   "version": "0.4.0",
   "devDependencies": {
     "browserify": "3.x",
-    "reactify": "0.11.x",
+    "reactify": "0.17.x",
     "uglifyify": "2.x",
     "rewireify": "0.x"
   },
   "dependencies": {
     "express": "4.x",
-    "react": "~0.10.0",
-    "node-jsx": "~0.10.0"
+    "react": "~0.12.0",
+    "node-jsx": "~0.12.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "build-dev": "browserify -e app/browser/bootstrap.jsx -t reactify -o public/scripts/bundle.dev.js -d",
-    "build-min": "browserify -e app/browser/bootstrap.jsx -t reactify -t uglifyify -o public/scripts/bundle.min.js",
+    "build-dev": "browserify -e app/browser/bootstrap.jsx -t reactify -o public/scripts/bundle.dev.js",
+    "build-min": "browserify -e app/browser/bootstrap.jsx -t reactify -g uglifyify -o public/scripts/bundle.min.js",
     "build-tdd": "browserify -e test/spec/suite.js -t reactify -t rewireify -o test/spec/bundle.js"
   }
 }

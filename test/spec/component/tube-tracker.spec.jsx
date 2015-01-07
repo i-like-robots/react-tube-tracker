@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require("react/addons");
 var networkData = require("../../../app/common/data");
 var TubeTracker = require("../../../app/component/tube-tracker.jsx");
@@ -9,7 +8,6 @@ var stubPrediction = require("../../lib/stub/prediction");
 describe("Tube Tracker", function() {
 
   var instance;
-  var container = document.createElement("div");
   var TestUtils = React.addons.TestUtils;
 
   beforeEach(function() {

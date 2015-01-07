@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require("react");
 
 module.exports = function stub(mount, unmount) {

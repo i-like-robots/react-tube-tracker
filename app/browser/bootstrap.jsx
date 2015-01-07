@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require("react");
 var networkData = require("../common/data");
 var TubeTracker = require("../component/tube-tracker.jsx");
@@ -19,5 +18,5 @@ window.app = (function() {
   }
 
   var initialData = JSON.parse(document.getElementById("initial-data").innerHTML);
-  return React.renderComponent(<TubeTracker networkData={networkData} initialData={initialData} />, document.body);
+  return React.render(<TubeTracker networkData={networkData} initialData={initialData} />, document.body);
 })();
