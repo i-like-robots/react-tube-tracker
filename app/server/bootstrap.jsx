@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require("react");
 var networkData = require("../common/data");
 var Template = require("../server/template");
@@ -9,7 +8,7 @@ function Bootstrap(data) {
 }
 
 Bootstrap.prototype.load = function(callback) {
-  var staticHTML = React.renderComponentToString(<TubeTracker networkData={networkData} initialData={this.data} />);
+  var staticHTML = React.renderToString(<TubeTracker networkData={networkData} initialData={this.data} />);
   new Template("../view/index.html").render({ app: staticHTML, data: JSON.stringify(this.data) }, callback);
 };
 

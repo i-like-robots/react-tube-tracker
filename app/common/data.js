@@ -149,7 +149,6 @@ exports.stations = {
   "940GZZLUTMP": "Temple",
   "940GZZLUTWH": "Tower Hill",
   "940GZZLUVIC": "Victoria",
-  "910GBLFR": "London Blackfriars Rail Station",
   "940GZZLUACT": "Acton Town",
   "940GZZLUBEC": "Becontree",
   "940GZZLUBSC": "Barons Court",
@@ -417,7 +416,6 @@ exports.stationsOnLines = {
     "940GZZLUWSP"
   ],
   "district": [
-    "910GBLFR",
     "940GZZLUACT",
     "940GZZLUADE",
     "940GZZLUBBB",

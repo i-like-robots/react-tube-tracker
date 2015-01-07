@@ -3,14 +3,14 @@
   "version": "0.4.0",
   "devDependencies": {
     "browserify": "3.x",
-    "reactify": "0.11.x",
+    "reactify": "0.17.x",
     "uglifyify": "2.x",
     "rewireify": "0.x"
   },
   "dependencies": {
     "express": "4.x",
-    "react": "~0.10.0",
-    "node-jsx": "~0.10.0"
+    "react": "~0.12.0",
+    "node-jsx": "~0.12.0"
   },
   "engines": {
     "node": ">=0.10.0"
