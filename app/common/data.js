@@ -376,7 +376,6 @@ exports.stationsOnLines = {
     "940GZZLUBWR",
     "940GZZLUBWT",
     "940GZZLUCST",
-    "940GZZLUECT",
     "940GZZLUEHM",
     "940GZZLUEMB",
     "940GZZLUERC",
