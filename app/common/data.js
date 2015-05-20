@@ -376,7 +376,6 @@ exports.stationsOnLines = {
     "940GZZLUBWR",
     "940GZZLUBWT",
     "940GZZLUCST",
-    "940GZZLUECT",
     "940GZZLUEHM",
     "940GZZLUEMB",
     "940GZZLUERC",
@@ -715,4 +714,254 @@ exports.stationsOnLines = {
     "940GZZLUBNK",
     "940GZZLUWLO"
   ]
+};
+
+exports.sharedPlatforms = {
+   "940GZZLUEMB": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUADE": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUBBB": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUBBN": [
+      [
+         "circle",
+         "hammersmith-city",
+         "metropolitan"
+      ]
+   ],
+   "940GZZLUBWR": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUEHM": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUERC": [
+      [
+         "circle",
+         "hammersmith-city"
+      ],
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUESQ": [
+      [
+         "circle",
+         "hammersmith-city",
+         "metropolitan"
+      ]
+   ],
+   "940GZZLUGHK": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUGPS": [
+      [
+         "circle",
+         "hammersmith-city",
+         "metropolitan"
+      ]
+   ],
+   "940GZZLULAD": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLULRD": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUPLW": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUMED": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLURYO": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUSBM": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUWLA": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUSGN": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUUPK": [
+      [
+         "district",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUWSP": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUEAE": [
+      [
+         "metropolitan",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLUHGD": [
+      [
+         "metropolitan",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLUICK": [
+      [
+         "metropolitan",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLURSM": [
+      [
+         "metropolitan",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLURYL": [
+      [
+         "metropolitan",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLURSP": [
+      [
+         "metropolitan",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLUBST": [
+      [
+         "circle",
+         "hammersmith-city"
+      ]
+   ],
+   "940GZZLUUXB": [
+      [
+         "metropolitan",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLUBWT": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUGTR": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUHSK": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUMMT": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUSJP": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUMSH": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUNHG": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUSKS": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUTMP": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUSSQ": [
+      [
+         "circle",
+         "district"
+      ]
+   ],
+   "940GZZLUECM": [
+      [
+         "district",
+         "piccadilly"
+      ]
+   ],
+   "940GZZLUTNG": [
+      [
+         "district",
+         "piccadilly"
+      ]
+   ]
 };

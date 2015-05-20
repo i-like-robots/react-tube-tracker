@@ -79,3 +79,23 @@ exports.isStationOnLine = function(line, station, data) {
   return this.isLine(line, data) && this.isStation(station, data) &&
     data.stationsOnLines[line].indexOf(station) >= 0;
 };
+
+exports.mergeGroupedLines = function(station, line, data) {
+  var lines = [line];
+
+  if (station in data.sharedPlatforms) {
+    var lineGroups = data.sharedPlatforms[station].filter(function(lineGroup) {
+      return lineGroup.indexOf(line) > -1;
+    });
+
+    // Flatten array of arrays
+    lines = lines.concat.apply(lines, lineGroups);
+
+    // Remove duplicates
+    lines = lines.filter(function(line, i) {
+      return lines.indexOf(line) == i;
+    });
+  }
+
+  return lines;
+};

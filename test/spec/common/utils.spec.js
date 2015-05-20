@@ -155,6 +155,25 @@ describe("Utils", function() {
 
     });
 
+    describe(".mergeGroupedLines()", function() {
+
+      it("should return only the given line when it does not share platforms with others at the station", function() {
+        var result = utils.mergeGroupedLines("940GZZLUOVL", "victoria", data);
+
+        expect(result.length).toBe(1);
+        expect(result).toContain("victoria");
+      });
+
+      it("should return all lines that share a platform with the given line at the station", function() {
+        var result = utils.mergeGroupedLines("940GZZLUEMB", "circle", data);
+
+        expect(result.length).toBe(2);
+        expect(result).toContain("circle");
+        expect(result).toContain("district");
+      });
+
+    });
+
   });
 
 });

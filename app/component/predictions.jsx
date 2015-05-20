@@ -111,6 +111,7 @@ var Trains = React.createClass({
         <tr className="trains__arrival" key={"train-" + train.vehicleId}>
           <td>{timeTo === "0:00" ? "-" : timeTo}</td>
           <td>{train.towards}</td>
+          <td>{train.lineName}</td>
           <td>{train.currentLocation}</td>
         </tr>
       );
@@ -122,6 +123,7 @@ var Trains = React.createClass({
           <tr>
             <th>Time</th>
             <th>Destination</th>
+            <th>Line</th>
             <th>Current location</th>
           </tr>
         </thead>
