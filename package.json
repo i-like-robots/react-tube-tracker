@@ -2,10 +2,10 @@
   "name": "tube-tracker",
   "version": "0.4.0",
   "devDependencies": {
-    "browserify": "3.x",
-    "reactify": "0.17.x",
-    "uglifyify": "2.x",
-    "rewireify": "0.x"
+    "browserify": "10.x",
+    "reactify": "1.1.x",
+    "uglifyify": "3.0.x",
+    "rewireify": "0.2.x"
   },
   "dependencies": {
     "express": "4.x",
