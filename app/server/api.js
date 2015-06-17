@@ -1,4 +1,4 @@
-var http = require("http");
+var https = require("https");
 var utils = require("../common/utils");
 var networkData = require("../common/data");
 
@@ -27,7 +27,7 @@ APIRequest.prototype.get = function(callback) {
     hostname: "api.tfl.gov.uk"
   };
 
-  var request = http.request(options, function(response) {
+  var request = https.request(options, function(response) {
     var str = "";
 
     response.setEncoding("utf8");
