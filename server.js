@@ -12,7 +12,7 @@ var app = express();
 app.get("/api/:line/:station", function(req, res) {
   new API(config).for(req.params.line, req.params.station).get(function(err, data) {
     if (err) {
-      return res.send(500, "Internal error");
+      return res.status(500).send("Internal error");
     }
 
     res.json(data);
@@ -23,12 +23,12 @@ app.get("/api/:line/:station", function(req, res) {
 app.get("/", function(req, res) {
   new API(config).for(req.query.line, req.query.station).get(function(err, data) {
     if (err) {
-      return res.send(500, "API error");
+      return res.status(500).send("API error");
     }
 
     new Bootstrap(data).load(function(err, responseHTML) {
       if (err) {
-        return res.send(500, "Template error");
+        return res.status(500).send("Template error");
       }
 
       res.send(responseHTML);
