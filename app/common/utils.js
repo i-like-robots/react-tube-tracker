@@ -1,4 +1,4 @@
-exports.debounceEvent = function(callback, wait) {
+module.exports.debounceEvent = function(callback, wait) {
   var timeout;
 
   return function() {
@@ -7,7 +7,7 @@ exports.debounceEvent = function(callback, wait) {
   };
 };
 
-exports.httpRequest = function(url, success, error) {
+module.exports.httpRequest = function(url, success, error) {
   var request = new XMLHttpRequest;
 
   request.open("GET", url);
@@ -28,21 +28,21 @@ exports.httpRequest = function(url, success, error) {
   request.send();
 };
 
-exports.apiRequestURL = function(line, station) {
+module.exports.apiRequestURL = function(line, station) {
   return "/api/" + line + "/" + station;
 };
 
-exports.formattedTimeUntil = function(timeTo) {
+module.exports.formattedTimeUntil = function(timeTo) {
   var minutes = Math.round(timeTo / 60);
   var seconds = Math.round((timeTo - (minutes * 60)) / 30) * 30;
   return "" + minutes + ":" + (seconds < 10 ? "0" : "") + (seconds > 0 ? seconds : "0");
 };
 
-exports.getQueryString = function() {
+module.exports.getQueryString = function() {
   return window.location.search;
 };
 
-exports.formatQueryString = function(properties) {
+module.exports.formatQueryString = function(properties) {
   var property;
   var queryString = [];
 
@@ -55,7 +55,7 @@ exports.formatQueryString = function(properties) {
   return "?" + queryString.join("&");
 };
 
-exports.queryStringProperty = function(queryString, prop) {
+module.exports.queryStringProperty = function(queryString, prop) {
   var pairs = queryString.replace(/^\?/, "").replace(/\/$/, "").split("&");
   var properties = {};
 
@@ -67,20 +67,20 @@ exports.queryStringProperty = function(queryString, prop) {
   return properties[prop];
 };
 
-exports.isLine = function(line, data) {
+module.exports.isLine = function(line, data) {
   return line in data.lines;
 };
 
-exports.isStation = function(station, data) {
+module.exports.isStation = function(station, data) {
   return station in data.stations;
 };
 
-exports.isStationOnLine = function(line, station, data) {
+module.exports.isStationOnLine = function(line, station, data) {
   return this.isLine(line, data) && this.isStation(station, data) &&
     data.stationsOnLines[line].indexOf(station) >= 0;
 };
 
-exports.mergeGroupedLines = function(station, line, data) {
+module.exports.mergeGroupedLines = function(station, line, data) {
   var lines = [line];
 
   if (station in data.sharedPlatforms) {

@@ -27,7 +27,7 @@ describe("Predictions", function() {
 
     // Teardown any fixtures that have been rendered into the container
     if (instance && instance.isMounted()) {
-      React.unmountComponentAtNode(instance.getDOMNode().parent);
+      React.unmountComponentAtNode(React.findDOMNode(instance).parentNode);
     }
   });
 

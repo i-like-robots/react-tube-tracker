@@ -57,13 +57,13 @@ var Line = React.createClass({
     // Dispatch an event for other components to capture
     var updateEvent = new CustomEvent("tt:update", {
       detail: {
-        station: this.refs.station.getDOMNode().value,
+        station: React.findDOMNode(this.refs.station).value,
         line: this.props.lineCode
       },
       bubbles: true
     });
 
-    this.refs.form.getDOMNode().dispatchEvent(updateEvent);
+    React.findDOMNode(this.refs.form).dispatchEvent(updateEvent);
   },
 
   render: function() {
