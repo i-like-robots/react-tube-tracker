@@ -1,4 +1,4 @@
-exports.lines = {
+module.exports.lines = {
   "bakerloo": "Bakerloo",
   "central": "Central",
   "circle": "Circle",
@@ -12,7 +12,7 @@ exports.lines = {
   "waterloo-city": "Waterloo & City"
 };
 
-exports.stations = {
+module.exports.stations = {
   "940GZZLUBST": "Baker Street",
   "940GZZLUCHX": "Charing Cross",
   "940GZZLUEAC": "Elephant & Castle",
@@ -286,7 +286,7 @@ exports.stations = {
   "940GZZLUWOG": "Wood Green"
 };
 
-exports.stationsOnLines = {
+module.exports.stationsOnLines = {
   "bakerloo": [
     "940GZZLUBST",
     "940GZZLUCHX",
@@ -705,7 +705,7 @@ exports.stationsOnLines = {
   ]
 };
 
-exports.sharedPlatforms = {
+module.exports.sharedPlatforms = {
    "940GZZLUEMB": [
       [
          "circle",

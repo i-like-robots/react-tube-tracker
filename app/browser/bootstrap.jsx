@@ -18,5 +18,5 @@ window.app = (function() {
   }
 
   var initialData = JSON.parse(document.getElementById("initial-data").innerHTML);
-  return React.render(<TubeTracker networkData={networkData} initialData={initialData} />, document.body);
+  return React.render(<TubeTracker networkData={networkData} initialData={initialData} />, document.getElementById("app"));
 })();
