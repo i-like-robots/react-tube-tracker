@@ -2,22 +2,22 @@
   "name": "tube-tracker",
   "version": "0.4.0",
   "devDependencies": {
-    "browserify": "10.x",
-    "reactify": "1.1.x",
-    "uglifyify": "3.0.x",
-    "rewireify": "0.2.x"
+    "browserify": "~10.0.0",
+    "reactify": "~1.1.0",
+    "uglifyify": "~3.0.0",
+    "rewireify": "~0.2.2"
   },
   "dependencies": {
     "express": "4.x",
-    "react": "~0.12.0",
-    "node-jsx": "~0.12.0"
+    "react": "~0.13.3",
+    "node-jsx": "~0.13.3"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
   "scripts": {
-    "build-dev": "browserify -e app/browser/bootstrap.jsx -t reactify -o public/scripts/bundle.dev.js",
+    "build-dev": "browserify -e app/browser/bootstrap.jsx -t reactify -o public/scripts/bundle.dev.js --debug",
     "build-min": "browserify -e app/browser/bootstrap.jsx -t reactify -g uglifyify -o public/scripts/bundle.min.js",
-    "build-tdd": "browserify -e test/spec/suite.js -t reactify -t rewireify -o test/spec/bundle.js"
+    "build-tdd": "browserify -e test/spec/suite.js -t reactify -t [ rewireify --ignore test/**,node_modules/** ] -o test/spec/bundle.js"
   }
 }

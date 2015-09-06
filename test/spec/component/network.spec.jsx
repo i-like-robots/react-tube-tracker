@@ -12,7 +12,7 @@ describe("Network", function() {
 
   afterEach(function() {
     if (instance && instance.isMounted()) {
-      React.unmountComponentAtNode(instance.getDOMNode().parent);
+      React.unmountComponentAtNode(React.findDOMNode(instance).parentNode);
     }
   });
 
@@ -39,7 +39,7 @@ describe("Network", function() {
       var button = TestUtils.findRenderedDOMComponentWithTag(instance, "button");
       var initialState = instance.state.open;
 
-      TestUtils.Simulate.click(button.getDOMNode());
+      TestUtils.Simulate.click(React.findDOMNode(button));
 
       expect(instance.state.open).toBe(!initialState);
     });
@@ -55,15 +55,15 @@ describe("Network", function() {
 
     it("should display the line name for the given line code", function() {
       var legend = TestUtils.findRenderedDOMComponentWithTag(instance, "legend");
-      expect(legend.getDOMNode().textContent).toBe("District");
+      expect(React.findDOMNode(legend).textContent).toBe("District");
     });
 
     it("should trigger a custom event with selected line and station", function() {
       var stubbedEvent = new CustomEvent("stub");
       spyOn(window, "CustomEvent").and.returnValue(stubbedEvent);
 
-      instance.refs.station.getDOMNode().value = "940GZZLUEMB";
-      TestUtils.Simulate.submit(instance.getDOMNode());
+      React.findDOMNode(instance.refs.station).value = "940GZZLUEMB";
+      TestUtils.Simulate.submit(React.findDOMNode(instance));
 
       expect(window.CustomEvent).toHaveBeenCalled();
       expect(window.CustomEvent.calls.argsFor(0).pop().detail).toEqual(jasmine.objectContaining({
