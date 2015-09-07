@@ -18,6 +18,6 @@
   "scripts": {
     "build-dev": "browserify -e app/browser/bootstrap.jsx -t reactify -o public/scripts/bundle.dev.js --debug",
     "build-min": "browserify -e app/browser/bootstrap.jsx -t reactify -g uglifyify -o public/scripts/bundle.min.js",
-    "build-tdd": "browserify -e test/spec/suite.js -t reactify -t [ rewireify --ignore test/**,node_modules/** ] -o test/spec/bundle.js"
+    "build-tdd": "browserify -e test/spec/suite.js -t [ rewireify --ignore test/**,node_modules/** ] -t reactify -o test/spec/bundle.js --debug"
   }
 }
