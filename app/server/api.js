@@ -19,11 +19,11 @@ APIRequest.prototype.get = function(callback) {
 
   var formatCallback = this.format.bind(this);
   var groupedLines = utils.mergeGroupedLines(this.station, this.line, networkData);
-  var path = "/Line/" + groupedLines.join(",") + "/Arrivals/" + this.station;
-  var queryString = "?app_id=" + this.config.APP_ID + "&app_key=" + this.config.APP_KEY;
+  var path = "/Line/" + groupedLines.join(',') + "/Arrivals?stopPointId=" + this.station;
+  var auth = "&app_id=" + this.config.APP_ID + "&app_key=" + this.config.APP_KEY;
 
   var options = {
-    path: path + queryString,
+    path: path + auth,
     hostname: "api.tfl.gov.uk"
   };
 
@@ -91,6 +91,8 @@ function parseResponse(responseText) {
 
 function formatData(responseData) {
   var formattedData = {};
+
+  console.log(responseData)
 
   var sortedData = responseData.sort(function(a, b) {
     return a.timeToStation - b.timeToStation;
